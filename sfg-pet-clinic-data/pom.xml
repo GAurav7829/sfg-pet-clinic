@@ -7,9 +7,11 @@
 		<artifactId>sfg-pet-clinic</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<!-- <groupId>com.sfg</groupId> -->
 	<artifactId>sfg-pet-clinic-data</artifactId>
 	<name>sfg-pet-clinic-data</name>
+	<properties>
+		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,9 +56,9 @@
 						<goals>
 							<goal>repackage</goal>
 						</goals>
-						<configuration>
+						<!-- <configuration>
 							<skip>true</skip>
-						</configuration>
+						</configuration> -->
 					</execution>
 				</executions>
 			</plugin>
