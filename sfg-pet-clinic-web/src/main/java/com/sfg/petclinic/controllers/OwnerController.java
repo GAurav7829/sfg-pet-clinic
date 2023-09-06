@@ -14,16 +14,22 @@ import com.sfg.petclinic.services.OwnerService;
 public class OwnerController {
 
 	private final OwnerService ownerService;
-	
+
 	public OwnerController(OwnerService ownerService) {
 		super();
 		this.ownerService = ownerService;
 	}
 
-	@RequestMapping({ "", "/", "/index", "/index.html", "/find" })
+	@RequestMapping({ "", "/", "/index", "/index.html" })
 	public String listOwners(Model model) {
 		Set<Owner> owners = ownerService.findAll();
 		model.addAttribute("owners", owners);
 		return "./owner/index";
 	}
+
+	@RequestMapping({ "/find" })
+	public String findOwners() {
+		return "notImplemented";
+	}
+
 }
