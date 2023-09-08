@@ -3,10 +3,15 @@ package com.sfg.petclinic.services.springDataJPA;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
+
 import com.sfg.petclinic.model.PetType;
 import com.sfg.petclinic.repositories.PetTypeRepository;
 import com.sfg.petclinic.services.PetTypeService;
 
+@Service
+@Profile("springDataJpa")
 public class PetTypeSDService implements PetTypeService {
 	
 	private final PetTypeRepository petTypeRepository;
