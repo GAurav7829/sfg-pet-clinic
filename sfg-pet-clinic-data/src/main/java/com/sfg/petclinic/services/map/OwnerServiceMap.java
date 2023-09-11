@@ -12,7 +12,7 @@ import com.sfg.petclinic.services.PetService;
 import com.sfg.petclinic.services.PetTypeService;
 
 @Service
-@Profile({"default", "map"})
+@Profile({ "default", "map" })
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 
 	private final PetTypeService petTypeService;
@@ -40,13 +40,13 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
 			if (null != object.getPets()) {
 				object.getPets().forEach(pet -> {
 					if (null != pet.getPetType()) {
-						if(null==pet.getPetType().getId()) {
+						if (null == pet.getPetType().getId()) {
 							pet.setPetType(petTypeService.save(pet.getPetType()));
 						}
-					}else {
+					} else {
 						throw new RuntimeException("Pet Type is required.");
 					}
-					if(pet.getId()==null) {
+					if (pet.getId() == null) {
 						Pet savedPet = petService.save(pet);
 						pet.setId(savedPet.getId());
 					}
@@ -68,7 +68,8 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
 	}
 
 	public Owner findByLastName(String lastName) {
-		return null;
+		return this.findAll().stream().filter(owner -> owner.getLastName().equalsIgnoreCase(lastName)).findFirst()
+				.orElse(null);
 	}
 
 }
