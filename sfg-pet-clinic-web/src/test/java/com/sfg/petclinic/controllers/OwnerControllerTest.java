@@ -1,5 +1,8 @@
 package com.sfg.petclinic.controllers;
 
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,6 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hamcrest.Matcher;
+import org.hamcrest.beans.HasProperty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,6 +70,13 @@ public class OwnerControllerTest {
 	public void findOwners() throws Exception {
 		mockMvc.perform(get("/owners/find")).andExpect(status().isOk()).andExpect(view().name("notImplemented"));
 		verifyNoInteractions(ownerService);
+	}
+
+	@Test
+	public void displayOwners() throws Exception {
+		when(ownerService.findById(anyLong())).thenReturn(Owner.builder().address("address").build());
+		mockMvc.perform(get("/owners/123")).andExpect(status().isOk()).andExpect(view().name("/owner/ownerDetails"));
+//		.andExpect(model().attribute("owner", hasProperty("address"), is("address")));	// not getting hasProperty method
 	}
 
 }
