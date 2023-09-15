@@ -9,7 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -57,7 +59,7 @@ public class OwnerController {
 		} else if (ownersByLastName.size() == 1) {
 			Owner ownerFound = ownersByLastName.get(0);
 			return "redirect:/owners/" + ownerFound.getId();
-		}else {
+		} else {
 			model.addAttribute("listOwners", ownersByLastName);
 			return "/owner/ownersList";
 		}
@@ -68,6 +70,41 @@ public class OwnerController {
 		ModelAndView modelAndView = new ModelAndView("/owner/ownerDetails");
 		modelAndView.addObject(this.ownerService.findById(id));
 		return modelAndView;
+	}
+
+	@GetMapping("/new")
+	public String initCreationForm(Model model) {
+		model.addAttribute("owner", Owner.builder().build());
+//		model.addAttribute("isNew", true);
+		return "owner/createOrUpdateOwnerForm";
+	}
+
+	@PostMapping("/new")
+	public String processCreationForm(@ModelAttribute Owner owner, BindingResult result) {
+		if (result.hasErrors())
+			return "owner/createOrUpdateOwnerForm";
+		else {
+			Owner savedOwner = ownerService.save(owner);
+			return "redirect:/owners/" + savedOwner.getId();
+		}
+	}
+
+	@GetMapping("/{id}/edit")
+	public String initUpdateOwnerForm(@PathVariable String id, Model model) {
+		Owner owner = ownerService.findById(Long.valueOf(id));
+		model.addAttribute("owner", owner);
+//		model.addAttribute("isNew", false);
+		return "owner/createOrUpdateOwnerForm";
+	}
+
+	@PostMapping("/{id}/edit")
+	public String processUpdateOwnerForm(@PathVariable String id, Owner owner, BindingResult result, Model model) {
+		if (result.hasErrors())
+			return "owner/createOrUpdateOwnerForm";
+		
+		owner.setId(Long.valueOf(id));	// as we add @InitBinder to prevent id
+		Owner savedOwner = ownerService.save(owner);
+		return "redirect:/owners/" + savedOwner.getId();
 	}
 
 }
