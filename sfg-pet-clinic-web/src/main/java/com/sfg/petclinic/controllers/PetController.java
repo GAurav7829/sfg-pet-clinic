@@ -52,7 +52,7 @@ public class PetController {
     public void initOwnerBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }
-/*
+
     @GetMapping("/pets/new")
     public String initCreationForm(Owner owner, Model model) {
         Pet pet = new Pet();
@@ -96,6 +96,4 @@ public class PetController {
             return "redirect:/owners/" + owner.getId();
         }
     }
-
-	*/
 }

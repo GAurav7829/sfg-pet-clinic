@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +19,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "pets")
 public class Pet extends BaseEntity {
-	
+
 	@Column(name = "name")
 	private String name;
 	@ManyToOne
@@ -38,5 +35,16 @@ public class Pet extends BaseEntity {
 	private LocalDate dateOfBirth;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
 	private Set<Visit> visits = new HashSet<>();
+
+	@Builder
+	public Pet(String name, PetType petType, Owner owner, LocalDate dateOfBirth, Set<Visit> visits) {
+		super();
+		this.name = name;
+		this.petType = petType;
+		this.owner = owner;
+		this.dateOfBirth = dateOfBirth;
+		if (null == visits || visits.size() > 0)
+			this.visits = visits;
+	}
 
 }
