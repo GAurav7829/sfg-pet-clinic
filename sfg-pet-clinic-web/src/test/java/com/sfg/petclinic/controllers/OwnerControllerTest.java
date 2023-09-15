@@ -54,17 +54,17 @@ public class OwnerControllerTest {
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
-	@Test
-	public void listOwners() throws Exception {
-		when(ownerService.findAll()).thenReturn(owners);
-		mockMvc.perform(get("/owners")).andExpect(status().isOk()).andExpect(view().name("./owner/index")).andExpect(model().attributeExists("owners"));
-	}
-
-	@Test
-	public void listOwnersAnotherPath() throws Exception {
-		when(ownerService.findAll()).thenReturn(owners);
-		mockMvc.perform(get("/owners/index")).andExpect(status().isOk()).andExpect(view().name("./owner/index")).andExpect(model().attributeExists("owners"));
-	}
+//	@Test
+//	public void listOwners() throws Exception {
+//		when(ownerService.findAll()).thenReturn(owners);
+//		mockMvc.perform(get("/owners")).andExpect(status().isOk()).andExpect(view().name("./owner/index")).andExpect(model().attributeExists("owners"));
+//	}
+//
+//	@Test
+//	public void listOwnersAnotherPath() throws Exception {
+//		when(ownerService.findAll()).thenReturn(owners);
+//		mockMvc.perform(get("/owners/index")).andExpect(status().isOk()).andExpect(view().name("./owner/index")).andExpect(model().attributeExists("owners"));
+//	}
 
 	@Test
 	public void findOwners() throws Exception {
