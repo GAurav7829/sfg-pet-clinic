@@ -21,7 +21,8 @@ public class OwnerSDService implements OwnerService {
 	private final PetRepository petRepository;
 	private final PetTypeRepository petTypeRepository;
 
-	public OwnerSDService(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository) {
+	public OwnerSDService(OwnerRepository ownerRepository, PetRepository petRepository,
+			PetTypeRepository petTypeRepository) {
 		super();
 		this.ownerRepository = ownerRepository;
 		this.petRepository = petRepository;
@@ -64,6 +65,11 @@ public class OwnerSDService implements OwnerService {
 	@Override
 	public List<Owner> findByLastNameContains(String lastName) {
 		return ownerRepository.findByLastNameContains(lastName);
+	}
+
+	@Override
+	public List<Owner> findByLastNameLike(String lastName) {
+		return ownerRepository.findByLastNameLike("%" + lastName + "%");
 	}
 
 }
