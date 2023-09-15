@@ -62,8 +62,8 @@ public class OwnerSDService implements OwnerService {
 	}
 
 	@Override
-	public List<Owner> findByLastNameLike(String lastName) {
-		return ownerRepository.findByLastNameLike(lastName);
+	public List<Owner> findByLastNameContains(String lastName) {
+		return ownerRepository.findByLastNameContains(lastName);
 	}
 
 }
